@@ -1,12 +1,6 @@
 fn main() {
     let filename = std::env::args().nth(1).unwrap();
     let string = std::fs::read_to_string(&filename).unwrap();
-    let mut lex = Token::lexer(&string);
-
-    let tokens: Vec<_> = lex.collect();
-    //dbg!(&tokens);
-
-    //let mut defines = Vec::new();
 
     let mut lex = Token::lexer(&string);
 
@@ -92,7 +86,6 @@ fn parse_vec3_list<'a>(lexer: &mut logos::Lexer<'a, Token<'a>>) -> Vec<[f32; 3]>
     values
 }
 
-
 fn parse_vec2_list<'a>(lexer: &mut logos::Lexer<'a, Token<'a>>) -> Vec<[f32; 2]> {
     assert_eq!(lexer.next(), Some(Token::OpenBracket));
 
@@ -120,7 +113,6 @@ fn parse_vec2_list<'a>(lexer: &mut logos::Lexer<'a, Token<'a>>) -> Vec<[f32; 2]>
 
     values
 }
-
 
 fn parse_float<'a>(lexer: &mut logos::Lexer<'a, Token<'a>>) -> f32 {
     match lexer.next() {
@@ -310,7 +302,7 @@ enum Token<'a> {
     #[token("false")]
     False,
 
-    // Logos requires one token varia#[token("visibility")]
+    #[token("visibility")]
     Visibility,
 
     #[token("variantSets")]
@@ -349,7 +341,7 @@ enum Token<'a> {
     #[token("specializes")]
     Specializes,
 
-    //nt to handle errors,
+    // Logos requires one token variant to handle errors,
     // it can be named anything you wish.
     #[error]
     // We can also use this variant to define whitespace,
